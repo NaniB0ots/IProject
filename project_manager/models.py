@@ -58,6 +58,9 @@ class Project(models.Model):
 
     tags = models.ManyToManyField(Tag, verbose_name='Теги')
 
+    creation_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
+
     class Meta:
         verbose_name = 'Проект'
         verbose_name_plural = 'Проекты'

@@ -10,6 +10,21 @@ class StudentAdmin(admin.ModelAdmin):
     ordering = ['lastname', 'firstname']
 
 
+@admin.register(models.Teacher)
+class TeacherAdmin(admin.ModelAdmin):
+    list_display = ('lastname', 'firstname', 'patronymic', 'post',)
+    search_fields = ('lastname', 'firstname', 'patronymic', 'post',)
+    list_filter = ('post',)
+    ordering = ['lastname', 'firstname']
+
+
 @admin.register(models.Tag)
 class TagAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(models.Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('title', 'description',)
+    search_fields = ('title', 'description',)
+    ordering = ['update_date', ]
