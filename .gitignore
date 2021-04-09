@@ -131,4 +131,4 @@ dmypy.json
 .idea
 *.pem
 
-static/admin
+static/admin/
