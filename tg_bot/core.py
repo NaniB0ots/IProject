@@ -14,8 +14,8 @@ from project_manager import models as project_manager_models
 class Bot(telebot.TeleBot):
     @staticmethod
     def get_start_message() -> str:
-        message = 'Добрейшего времени суток!\n\n' \
-                  'Тебя приветствует менеджер проектной деятельности ИРНИТУ.\n\n' \
+        message = 'Добрейшего времени суток!\n' \
+                  'Тебя приветствует менеджер проектной деятельности ИРНИТУ.\n' \
                   'Добро пожаловать!'
 
         return message
@@ -39,8 +39,8 @@ class Bot(telebot.TeleBot):
         pass
 
     def send_authorization_message(self, chat_id):
-        text = 'Для того чтобы начать пользоваться функциями бота, введите токен авторизации.\n\n ' \
-               'Токен можно получить в профиле'
+        text = 'Для того чтобы начать пользоваться функциями бота, отправьте боту токен авторизации.\n\n ' \
+               'Токен можно получить в личном кабинете'
 
         msg = self.send_message(chat_id=chat_id, text=text, reply_markup=keyboards.get_inline_authorization_keyboard())
         return msg
@@ -49,21 +49,20 @@ class Bot(telebot.TeleBot):
 class User:
     model = models.TgUser
 
-    def __init__(self):
+    def __init__(self, chat_id):
+        self.chat_id = chat_id
         self.object = self.get_object()
 
     def get_object(self):
         try:
-            return self.model.objects.get()
+            return self.model.objects.get(chat_id=self.chat_id)
         except self.model.DoesNotExist:
             return self.model.objects.none()
 
-    def authorization(self, chat_id: int, token: str, username: str):
-
+    def authorization(self, token: str, username: str):
         try:
-            token_object = project_manager_models.AuthorizationToken.objects.get(token=token, is_used=False)
-        except project_manager_models.AuthorizationToken.DoesNotExist:
+            user_profile = project_manager_models.Student.objects.get(authorization_token__token=token)
+        except project_manager_models.Student.DoesNotExist:
             return self.model.objects.none()
-        token_object.is_used = True
-        token_object.save()
-        return self.model.objects.create(chat_id=chat_id, token=token, username=username)
+
+        return self.model.objects.create(chat_id=self.chat_id, username=username, student_profile=user_profile)

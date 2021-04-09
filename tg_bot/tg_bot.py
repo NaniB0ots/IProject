@@ -15,10 +15,11 @@ bot = Bot(TG_TOKEN)
 @bot.message_handler(commands=['start'])
 def start_message(message):
     chat_id = message.chat.id
-    user = core.User()
+    user = core.User(chat_id)
 
-    if not user:
-        msg = bot.send_message(chat_id=chat_id, text=bot.get_register_message())
+    if not user.object:
+        bot.send_message(chat_id=chat_id, text=bot.get_start_message())
+        msg = bot.send_authorization_message(chat_id=chat_id)
         bot.register_next_step_handler(msg, authorization)
         return
 
@@ -29,8 +30,8 @@ def authorization(message):
     chat_id = message.chat.id
     token = message.text
     username = message.from_user.username
-    if core.User.authorization(chat_id=chat_id, token=token, username=username):
-
+    user = core.User(chat_id)
+    if user.authorization(token=token, username=username):
         bot.send_message(chat_id=chat_id, text=bot.get_instruction(), reply_markup=keyboards.get_main_menu_keyboard())
     else:
         msg = bot.send_authorization_message(chat_id)

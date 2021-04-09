@@ -28,3 +28,8 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'description',)
     search_fields = ('title', 'description',)
     ordering = ['-update_date', ]
+
+
+@admin.register(models.AuthorizationToken)
+class AuthorizationTokenAdmin(admin.ModelAdmin):
+    pass
