@@ -108,7 +108,5 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 # Telegram bot
-
 TG_TOKEN = env('TG_TOKEN')
