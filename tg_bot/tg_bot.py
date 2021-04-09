@@ -36,3 +36,21 @@ def authorization(message):
     else:
         msg = bot.send_authorization_message(chat_id)
         bot.register_next_step_handler(msg, authorization)
+
+
+@bot.message_handler(
+    content_types=['audio', 'photo', 'voice', 'video', 'document', 'text', 'location', 'contact', 'sticker'])
+def invalid_message(message):
+    """
+    Ответ на текст, который бот не понимает.
+    Функция должна быть последней по порядку!
+    :return:
+    """
+    chat_id = message.chat.id
+    user = core.User(chat_id)
+    if not user.object:
+        msg = bot.send_authorization_message(chat_id)
+        bot.register_next_step_handler(msg, authorization)
+        return
+
+    bot.send_invalid_message_answer(chat_id=chat_id)
