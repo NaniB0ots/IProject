@@ -1,7 +1,7 @@
 from telebot import types
 import json
 
-from project.settings import PROFILE_URL
+from project.settings import PROFILE_URL, PROJECT_URL
 
 MAX_CALLBACK_RANGE = 41
 
@@ -35,4 +35,10 @@ def get_search_menu_keyboard():
     markup.add(btn1)
     markup.add(btn2, btn3)
     markup.add(btn4)
+    return markup
+
+
+def get_inline_project_card_keyboard():
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton(text='Карточка проекта', url=PROJECT_URL))
     return markup

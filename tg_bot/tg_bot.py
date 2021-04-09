@@ -94,7 +94,7 @@ def main_menu(message):
 
     for project in projects:
         bot.send_message(chat_id=chat_id, text=core.Project.get_project_info_str(project),
-                         reply_markup=keyboards.get_main_menu_keyboard(), parse_mode='html')
+                         reply_markup=keyboards.get_inline_project_card_keyboard(), parse_mode='html')
 
 
 @bot.message_handler(

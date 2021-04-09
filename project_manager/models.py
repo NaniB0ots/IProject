@@ -65,6 +65,7 @@ class Teacher(models.Model):
 class Project(models.Model):
     title = models.CharField(max_length=300, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
+    difficulty = models.PositiveIntegerField(blank=True, null=True, verbose_name='Сложность')
 
     students = models.ManyToManyField(Student, blank=True, verbose_name='Студенты')
     teacher = models.ForeignKey(Teacher, blank=True, null=True,

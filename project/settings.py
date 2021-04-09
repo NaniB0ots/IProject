@@ -111,4 +111,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Telegram bot
 TG_TOKEN = env('TG_TOKEN')
 PROFILE_URL = env('PROFILE_URL')
-
+PROJECT_URL = env('PROJECT_URL')
