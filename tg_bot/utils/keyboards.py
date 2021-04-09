@@ -42,3 +42,17 @@ def get_inline_project_card_keyboard():
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text='Карточка проекта', url=PROJECT_URL))
     return markup
+
+
+def get_inline_subscribe_for_project_keyboard(project_id: int, subscribe=True):
+    markup = types.InlineKeyboardMarkup()
+
+    markup.add(types.InlineKeyboardButton(text='Карточка проекта', url=PROJECT_URL))
+    if subscribe:
+        callback_data = json.dumps({'subscribe': project_id})
+        markup.add(types.InlineKeyboardButton(text='Записаться в проект', callback_data=callback_data))
+    else:
+        callback_data = json.dumps({'unsubscribe': project_id})
+        markup.add(types.InlineKeyboardButton(text='Выйти из проекта', callback_data=callback_data))
+
+    return markup
