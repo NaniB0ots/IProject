@@ -77,6 +77,26 @@ def main_menu(message):
                      reply_markup=keyboards.get_main_menu_keyboard(), parse_mode='html')
 
 
+@bot.message_handler(regexp='^Мои проекты$')
+def main_menu(message):
+    chat_id = message.chat.id
+    user = core.User(chat_id)
+    if not user.object:
+        msg = bot.send_authorization_message(chat_id)
+        bot.register_next_step_handler(msg, authorization)
+        return
+
+    projects = core.Project.get_projects_by_user(user_profile=user.object.student_profile)
+    if not projects:
+        bot.send_message(chat_id=chat_id, text='У Вас нет активныйх проектов🥺\n\n'
+                                               'Воспользуйтесь поиском, чтобы найти проект для себя☺️\n')
+        return
+
+    for project in projects:
+        bot.send_message(chat_id=chat_id, text=core.Project.get_project_info_str(project),
+                         reply_markup=keyboards.get_main_menu_keyboard(), parse_mode='html')
+
+
 @bot.message_handler(
     content_types=['audio', 'photo', 'voice', 'video', 'document', 'text', 'location', 'contact', 'sticker'])
 def invalid_message(message):

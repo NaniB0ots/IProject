@@ -87,3 +87,24 @@ class User:
                f'Интересы можно изменить в личном кабинете'
 
         return text
+
+
+class Project:
+    @staticmethod
+    def get_projects_by_user(user_profile):
+        return project_manager_models.Project.objects.filter(students=user_profile)
+
+    @staticmethod
+    def get_project_info_str(project: project_manager_models.Project) -> str:
+        tags = project.tags.all()
+
+        tags_str = ''
+        for tag in tags:
+            tags_str += f'<i>{tag.tag}</i>, '
+        tags_str = tags_str[:-2]  # обрезаем запятую
+
+        text = f'<b>{project.title}</b>\n' \
+               f'{project.description}\n' \
+               f'Направления: <i>{tags_str}</i>\n'
+
+        return text
