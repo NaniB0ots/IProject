@@ -38,6 +38,19 @@ def authorization(message):
         bot.register_next_step_handler(msg, authorization)
 
 
+@bot.message_handler(regexp='^Профиль$')
+def delete_last_news(message):
+    chat_id = message.chat.id
+    user = core.User(chat_id)
+    if not user.object:
+        msg = bot.send_authorization_message(chat_id)
+        bot.register_next_step_handler(msg, authorization)
+        return
+
+    bot.send_message(chat_id=chat_id, text=user.get_user_info_text(),
+                     reply_markup=keyboards.get_inline_profile_keyboard(), parse_mode='html')
+
+
 @bot.message_handler(
     content_types=['audio', 'photo', 'voice', 'video', 'document', 'text', 'location', 'contact', 'sticker'])
 def invalid_message(message):

@@ -66,3 +66,24 @@ class User:
             return self.model.objects.none()
 
         return self.model.objects.create(chat_id=self.chat_id, username=username, student_profile=user_profile)
+
+    def get_user_info_text(self) -> str:
+        if not self.object:
+            return 'Произошла ошибка. Попробуйте позже...'
+        firstname = self.object.student_profile.firstname
+        last_name = self.object.student_profile.lastname
+        patronymic = self.object.student_profile.patronymic
+        group = self.object.student_profile.group
+        tags = self.object.student_profile.tags.all()
+
+        tags_str = ''
+        for tag in tags:
+            tags_str += f'<i>{tag.tag}</i>, '
+        tags_str = tags_str[:-2]  # обрезаем запятую
+
+        text = f'<b>{last_name} {firstname} {patronymic if patronymic else ""}</b>\n' \
+               f'Группа: {group}\n' \
+               f'Интересы: {tags_str if tags_str else "пусто..."}\n\n' \
+               f'Интересы можно изменить в личном кабинете'
+
+        return text
