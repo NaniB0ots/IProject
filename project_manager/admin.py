@@ -27,4 +27,4 @@ class TagAdmin(admin.ModelAdmin):
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'description',)
     search_fields = ('title', 'description',)
-    ordering = ['update_date', ]
+    ordering = ['-update_date', ]

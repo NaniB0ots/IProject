@@ -15,3 +15,9 @@ def get_main_menu_keyboard():
     markup.add(btn2, btn3)
     markup.add(btn4)
     return markup
+
+
+def get_inline_authorization_keyboard():
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton(text='Профиль', url='https://vk.com/'))
+    return markup

@@ -1,6 +1,18 @@
 from django.db import models
 
 
+class AuthorizationToken(models.Model):
+    token = models.CharField(max_length=32, verbose_name='Токен')
+    is_used = models.BooleanField(default=False, verbose_name='Использовано')
+
+    class Meta:
+        verbose_name = 'Токен'
+        verbose_name_plural = 'Токены'
+
+    def __str__(self):
+        return f'{self.token}'
+
+
 class Tag(models.Model):
     tag = models.CharField(max_length=150, verbose_name='Тег')
 
@@ -21,6 +33,8 @@ class Student(models.Model):
 
     tags = models.ManyToManyField(Tag, verbose_name='Теги (кмпетенции)')
 
+    authorization_token = models.OneToOneField(AuthorizationToken, blank=True, null=True,
+                                               verbose_name='Токен авторизации', on_delete=models.SET_NULL)
     in_the_project = models.BooleanField(default=False, verbose_name='В проекте')
 
     class Meta:
