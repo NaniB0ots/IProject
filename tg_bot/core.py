@@ -42,7 +42,7 @@ class Bot(telebot.TeleBot):
         text = 'Для того чтобы начать пользоваться функциями бота, отправьте боту токен авторизации.\n\n ' \
                'Токен можно получить в личном кабинете'
 
-        msg = self.send_message(chat_id=chat_id, text=text, reply_markup=keyboards.get_inline_authorization_keyboard())
+        msg = self.send_message(chat_id=chat_id, text=text, reply_markup=keyboards.get_inline_profile_keyboard())
         return msg
 
 
