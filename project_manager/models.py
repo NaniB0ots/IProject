@@ -73,6 +73,8 @@ class Project(models.Model):
 
     tags = models.ManyToManyField(Tag, verbose_name='Теги')
 
+    sent_out = models.BooleanField(default=False, verbose_name='Разослали')
+
     creation_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
 

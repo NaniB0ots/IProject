@@ -157,6 +157,6 @@ class Project:
                f'<b>Руководитель:</b>\n' \
                f'{manager_info if manager_info else "..."}\n\n' \
                f'<b>Проектная команда:\n</b>' \
-               f'{composition}'
+               f'{composition if composition else "..."}'
 
         return text

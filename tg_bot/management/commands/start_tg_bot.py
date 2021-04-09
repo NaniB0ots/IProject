@@ -1,5 +1,4 @@
 from django.core.management.base import BaseCommand
-from threading import Thread
 from project.settings import DEBUG
 from tg_bot.tg_bot import bot
 
