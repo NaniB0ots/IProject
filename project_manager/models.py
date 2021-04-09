@@ -29,6 +29,8 @@ class Student(models.Model):
     firstname = models.CharField(max_length=150, verbose_name='Имя')
     patronymic = models.CharField(max_length=150, verbose_name='Отчество', blank=True)
 
+    connection = models.CharField(max_length=150, blank=True, default='Связь (Номер телефона, email  т.п.)')
+
     group = models.CharField(max_length=150, verbose_name='Группа')
 
     tags = models.ManyToManyField(Tag, verbose_name='Теги (кмпетенции)')
@@ -49,6 +51,8 @@ class Teacher(models.Model):
     lastname = models.CharField(max_length=150, verbose_name='Фамилия')
     firstname = models.CharField(max_length=150, verbose_name='Имя')
     patronymic = models.CharField(max_length=150, verbose_name='Отчество', blank=True)
+
+    connection = models.CharField(max_length=150, blank=True, verbose_name='Связь (Номер телефона, email  т.п.)')
 
     post = models.CharField(max_length=250, verbose_name='Должность')
 

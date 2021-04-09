@@ -74,6 +74,7 @@ class User:
         last_name = self.object.student_profile.lastname
         patronymic = self.object.student_profile.patronymic
         group = self.object.student_profile.group
+        connection = self.object.student_profile.connection
         tags = self.object.student_profile.tags.all()
 
         tags_str = ''
@@ -83,6 +84,7 @@ class User:
 
         text = f'<b>{last_name} {firstname} {patronymic if patronymic else ""}</b>\n' \
                f'Группа: {group}\n' \
+               f'Связь: {connection}\n' \
                f'Интересы: {tags_str if tags_str else "пусто..."}\n\n' \
                f'Интересы можно изменить в личном кабинете'
 
@@ -103,6 +105,7 @@ class Project:
             last_name = student.lastname
             patronymic = student.patronymic
             group = student.group
+            connection = student.connection
             tags = student.tags.all()
 
             student_tags_str = ''
@@ -112,6 +115,7 @@ class Project:
 
             student_info = f'{" " * 5}{last_name} {firstname} {patronymic if patronymic else ""}\n' \
                            f'{" " * 5}Группа: {group}\n' \
+                           f'{" " * 5}Связь: {connection}\n' \
                            f'{" " * 5}Интересы: {student_tags_str if student_tags_str else "пусто..."}'
             composition += f'{student_info}\n\n'
         return composition
@@ -124,6 +128,7 @@ class Project:
         last_name = manager.lastname
         patronymic = manager.patronymic
         post = manager.post
+        connection = manager.connection
         tags = manager.tags.all()
 
         tags_str = ''
@@ -133,6 +138,7 @@ class Project:
 
         text = f'{" " * 5}{last_name} {firstname} {patronymic if patronymic else ""}\n' \
                f'{" " * 5}Должность: {post}\n' \
+               f'{" " * 5}Связь: {connection}\n' \
                f'{" " * 5}Компетенции: {tags_str if tags_str else "..."}'
 
         return text
